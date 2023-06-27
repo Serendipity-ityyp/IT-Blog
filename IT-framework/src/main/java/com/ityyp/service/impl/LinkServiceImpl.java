@@ -28,6 +28,7 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link>
         lqw.eq(Link::getStatus, SystemConstants.Link_STATUS_NORMAL);
         List<Link> list = list(lqw);
         List<LinkVo> linkVos = BeanCopyUtils.copyBeanList(list, LinkVo.class);
+        System.out.println();
         return ResponseResult.okResult(linkVos);
     }
 }
