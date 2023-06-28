@@ -1,4 +1,4 @@
-package com.ityyp.domain.pojo;
+package com.ityyp.domain.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
