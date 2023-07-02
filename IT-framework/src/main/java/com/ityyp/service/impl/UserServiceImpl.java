@@ -67,7 +67,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (nickNameExist(user.getNickName())) {
             throw new SystemException(AppHttpCodeEnum.NICKNAME_EXIST);
         }
-        //...邮箱
+        //邮箱
         if (emailExist(user.getEmail())) {
             throw new SystemException(AppHttpCodeEnum.EMAIL_EXIST);
         }

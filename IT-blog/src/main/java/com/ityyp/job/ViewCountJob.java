@@ -22,7 +22,7 @@ public class ViewCountJob {
     private ArticleService articleService;
 
 
-    @Scheduled(cron = "0 0/10 * * * ?")// 0 0/2 * * * ?    表示每2分钟 执行任务
+    @Scheduled(cron = "0 0/10 * * * ?")//表示每10分钟执行一次任务， 0 0/2 * * * ?    表示每2分钟 执行任务
     public void updateViewCount(){
         //获取redis中的浏览量
         Map<String, Integer> viewCountMap = redisCache.getCacheMap("article:viewCount");
@@ -33,6 +33,5 @@ public class ViewCountJob {
                 .collect(Collectors.toList());
         //更新到数据库中
         articleService.updateBatchById(articles);
-
     }
 }

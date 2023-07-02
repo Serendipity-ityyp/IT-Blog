@@ -17,17 +17,19 @@ import java.util.UUID;
 public class JwtUtil {
 
     //有效期为
-    public static final Long JWT_TTL = 24*60 * 60 *1000L;// 60 * 60 *1000  一个小时
+    public static final Long JWT_TTL = 24 * 60 * 60 * 1000L;// 60 * 60 *1000  一个小时
     //设置秘钥明文
-    public static final String JWT_KEY = "sangeng";
+//    public static final String JWT_KEY = "sangeng";
+    public static final String JWT_KEY = "comityyp";
 
-    public static String getUUID(){
+    public static String getUUID() {
         String token = UUID.randomUUID().toString().replaceAll("-", "");
         return token;
     }
-    
+
     /**
      * 生成jtw
+     *
      * @param subject token中要存放的数据（json格式）
      * @return
      */
@@ -38,7 +40,8 @@ public class JwtUtil {
 
     /**
      * 生成jtw
-     * @param subject token中要存放的数据（json格式）
+     *
+     * @param subject   token中要存放的数据（json格式）
      * @param ttlMillis token超时时间
      * @return
      */
@@ -52,15 +55,15 @@ public class JwtUtil {
         SecretKey secretKey = generalKey();
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        if(ttlMillis==null){
-            ttlMillis=JwtUtil.JWT_TTL;
+        if (ttlMillis == null) {
+            ttlMillis = JwtUtil.JWT_TTL;
         }
         long expMillis = nowMillis + ttlMillis;
         Date expDate = new Date(expMillis);
         return Jwts.builder()
                 .setId(uuid)              //唯一的ID
                 .setSubject(subject)   // 主题  可以是JSON数据
-                .setIssuer("sg")     // 签发者
+                .setIssuer("ityyp")     // 签发者
                 .setIssuedAt(now)      // 签发时间
                 .signWith(signatureAlgorithm, secretKey) //使用HS256对称加密算法签名, 第二个参数为秘钥
                 .setExpiration(expDate);
@@ -68,6 +71,7 @@ public class JwtUtil {
 
     /**
      * 创建token
+     *
      * @param id
      * @param subject
      * @param ttlMillis
@@ -79,13 +83,16 @@ public class JwtUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjYWM2ZDVhZi1mNjVlLTQ0MDAtYjcxMi0zYWEwOGIyOTIwYjQiLCJzdWIiOiJzZyIsImlzcyI6InNnIiwiaWF0IjoxNjM4MTA2NzEyLCJleHAiOjE2MzgxMTAzMTJ9.JVsSbkP94wuczb4QryQbAke3ysBDIL5ou8fWsbt_ebg";
-        Claims claims = parseJWT(token);
-        System.out.println(claims);
+        String jwt = createJWT("1234");
+        System.out.println(jwt);
+//        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1ZGM4OWY4YTRmNDI0YjRiOTZjMDkxNGQxMjY5NGRlNCIsInN1YiI6IjE0Nzg3MTY0MDQ4NjY1IiwiaXNzIjoic2ciLCJpYXQiOjE2ODgyOTA5NDMsImV4cCI6MTY4ODM3NzM0M30.RplBwwjhsJcC3KVuFa_wH2I0Tkri_ZL2KANAWmXbu2c";
+        Claims claims = parseJWT(jwt);
+        System.out.println(claims.getSubject());
     }
 
     /**
      * 生成加密后的秘钥 secretKey
+     *
      * @return
      */
     public static SecretKey generalKey() {
@@ -93,7 +100,7 @@ public class JwtUtil {
         SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
         return key;
     }
-    
+
     /**
      * 解析
      *
@@ -108,6 +115,5 @@ public class JwtUtil {
                 .parseClaimsJws(jwt)
                 .getBody();
     }
-
 
 }
