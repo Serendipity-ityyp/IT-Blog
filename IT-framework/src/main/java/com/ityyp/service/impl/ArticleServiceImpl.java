@@ -15,6 +15,7 @@ import com.ityyp.service.ArticleService;
 import com.ityyp.mapper.ArticleMapper;
 import com.ityyp.service.CategoryService;
 import com.ityyp.utils.BeanCopyUtils;
+import com.ityyp.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,11 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     implements ArticleService{
 
-    @Autowired CategoryService categoryService;
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    private RedisCache redisCache;
 
     @Override
     public ResponseResult hotArticleList() {
@@ -87,6 +92,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     public ResponseResult getArticleDetails(Long id) {
         //根据id查询文章
         Article article = getById(id);
+        //从redis中获取viewCount
+        Integer viewCount = redisCache.getCacheMapValue("article:viewCount", id.toString());
+        article.setViewCount(viewCount.longValue());
         //转换成Vo
         ArticleDetailsVo articleDetailsVo = BeanCopyUtils.copyBean(article, ArticleDetailsVo.class);
         //根据分类id查询分类名
@@ -97,6 +105,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         }
         //封装响应返回
         return ResponseResult.okResult(articleDetailsVo);
+    }
+
+    @Override
+    public ResponseResult updateViewCount(Long id) {
+        //更新redis中对应 id的浏览量
+        redisCache.incrementCacheMapValue("article:viewCount",id.toString(),1);
+        return ResponseResult.okResult();
     }
 }
 

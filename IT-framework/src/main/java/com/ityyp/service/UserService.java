@@ -1,5 +1,6 @@
 package com.ityyp.service;
 
+import com.ityyp.domain.ResponseResult;
 import com.ityyp.domain.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +11,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserService extends IService<User> {
 
+    ResponseResult userInfo();
+
+    ResponseResult updateUserInfo(User user);
+
+    ResponseResult register(User user);
 }

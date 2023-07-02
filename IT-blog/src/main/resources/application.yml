@@ -20,3 +20,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+oss:
+  accessKey: aW43qRDO3j2RU1z0Qig1HMcp-pSA2NX0pIVOX7Dp
+  secretKey: tocpEd-dv9hnCrrMt45qCgIbt6WiGhJK5tGXGv6_
+  bucket: ityyp-blog

@@ -16,7 +16,7 @@ public class SystemConstants {
     /**
      * 热门文章当前页码展示的条数
      */
-    public static final int HOTARTICLE_CURRENT_PAGESIZE = 1;
+    public static final int HOTARTICLE_CURRENT_PAGESIZE = 10;
 
     /**
      * 文章类型状态
@@ -26,5 +26,17 @@ public class SystemConstants {
      * 友链类型状态
      */
     public static final String Link_STATUS_NORMAL = "0";
+    /**
+     * 文章根评论
+     */
+    public static final Long COMMENT_STATUS_ROOT = -1L;
 
+    /**
+     * 评论类型为：文章评论
+     */
+    public static final String ARTICLE_COMMENT = "0";
+    /**
+     * 评论类型为：友联评论
+     */
+    public static final String LINK_COMMENT = "1";
 }

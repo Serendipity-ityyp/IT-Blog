@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MbatisPlusConfig {
+public class MybatisPlusConfig {
 
     /**
      * 3.4.0之后版本
