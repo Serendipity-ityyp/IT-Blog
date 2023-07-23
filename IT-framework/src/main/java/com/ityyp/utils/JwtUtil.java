@@ -20,7 +20,7 @@ public class JwtUtil {
     public static final Long JWT_TTL = 24 * 60 * 60 * 1000L;// 60 * 60 *1000  一个小时
     //设置秘钥明文
 //    public static final String JWT_KEY = "sangeng";
-    public static final String JWT_KEY = "comityyp";
+    public static final String JWT_KEY = "comityyp";//Base64编码个数必须是4的倍数
 
     public static String getUUID() {
         String token = UUID.randomUUID().toString().replaceAll("-", "");

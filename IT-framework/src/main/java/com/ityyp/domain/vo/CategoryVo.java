@@ -22,4 +22,6 @@ public class CategoryVo implements Serializable {
      */
     private String name;
 
+    private String description;
+
 }

@@ -1,15 +1,18 @@
 package com.ityyp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ityyp.constants.SystemConstants;
 import com.ityyp.domain.ResponseResult;
 import com.ityyp.domain.pojo.Link;
 import com.ityyp.domain.vo.LinkVo;
+import com.ityyp.domain.vo.PageVo;
 import com.ityyp.service.LinkService;
 import com.ityyp.mapper.LinkMapper;
 import com.ityyp.utils.BeanCopyUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -30,6 +33,18 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link>
         List<LinkVo> linkVos = BeanCopyUtils.copyBeanList(list, LinkVo.class);
         System.out.println();
         return ResponseResult.okResult(linkVos);
+    }
+
+    @Override
+    public ResponseResult listAllLink(Long pageNum, Long pageSize, Link link) {
+        LambdaQueryWrapper<Link> lqw = new LambdaQueryWrapper<>();
+        lqw.like(StringUtils.hasText(link.getName()),Link::getName,link.getName());
+        lqw.eq(StringUtils.hasText(link.getStatus()),Link::getStatus, link.getStatus());
+
+        Page<Link> linkPage = new Page<>(pageNum,pageSize);
+        page(linkPage,lqw);
+        PageVo pageVo = new PageVo(linkPage.getRecords(), linkPage.getTotal());
+        return ResponseResult.okResult(pageVo);
     }
 }
 

@@ -92,6 +92,9 @@ public class User implements Serializable {
     private Integer delFlag;
 
     @TableField(exist = false)
+    private Long[] roleIds;
+
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     @Override

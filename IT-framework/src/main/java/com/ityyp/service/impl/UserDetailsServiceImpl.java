@@ -1,8 +1,10 @@
 package com.ityyp.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.ityyp.constants.SystemConstants;
 import com.ityyp.domain.pojo.LoginUser;
 import com.ityyp.domain.pojo.User;
+import com.ityyp.mapper.MenuMapper;
 import com.ityyp.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -17,6 +20,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private MenuMapper menuMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,10 +34,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (Objects.isNull(user)){
             throw new RuntimeException("用户不存在");
         }
-        //TODO 查询权限信息
-
+        //返回用户信息
+        if (user.getType().equals(SystemConstants.ADMIN)){
+            List<String> list = menuMapper.selectPermsByUserId(user.getId());
+            return new LoginUser(user,list);
+        }
 
         //返回用户
-        return new LoginUser(user);
+        return new LoginUser(user,null);
     }
 }

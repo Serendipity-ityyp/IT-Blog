@@ -3,6 +3,7 @@ package com.ityyp.service;
 import com.ityyp.domain.ResponseResult;
 import com.ityyp.domain.pojo.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.swagger.models.auth.In;
 
 /**
 * @author Administrator
@@ -12,4 +13,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface CategoryService extends IService<Category> {
 
     ResponseResult getCategoryList();
+
+    ResponseResult listAllCategory();
+
+    ResponseResult listCategory(Integer pageNum,Integer pageSize,Category category);
 }
