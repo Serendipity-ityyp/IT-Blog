@@ -2,17 +2,13 @@ package com.ityyp.runner;
 
 import com.ityyp.domain.pojo.Article;
 import com.ityyp.mapper.ArticleMapper;
-import com.ityyp.service.ArticleService;
 import com.ityyp.utils.RedisCache;
-import org.aspectj.weaver.NewFieldTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
@@ -31,7 +27,7 @@ public class ViewCountRunner implements CommandLineRunner {
         Map<String, Integer> viewCountMap = articles.stream()
                 .collect(Collectors.toMap(article -> article.getId().toString(), article -> article.getViewCount().intValue()));
         //存储到redis中
-        redisCache.setCacheMap("article:viewCount",viewCountMap);
+        redisCache.setCacheMap("article:viewCount", viewCountMap);
     }
 }
 

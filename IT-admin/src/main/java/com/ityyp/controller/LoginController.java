@@ -14,7 +14,6 @@ import com.ityyp.service.MenuService;
 import com.ityyp.service.RoleService;
 import com.ityyp.utils.BeanCopyUtils;
 import com.ityyp.utils.SecurityUtils;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,11 +53,11 @@ public class LoginController {
     public ResponseResult<AdminUserInfoVo> getInfo(){
         //获取当前登录用户
         LoginUser loginUser = SecurityUtils.getLoginUser();
+        Long userId = loginUser.getUser().getId();
         //根据用户id查询权限信息
-        List<String> perms = menuService.selectPermsByUserId(loginUser.getUser().getId());
+        List<String> perms = menuService.selectPermsByUserId(userId);
         //根据用户id查询角色信息
-        List<String> rolesKeyLists = roleService.selectRoleKeyByUserId(loginUser.getUser().getId());
-//        List<String> rolesKeyLists = null;
+        List<String> rolesKeyLists = roleService.selectRoleKeyByUserId(userId);
         //封装数据返回
         UserInfoVo userInfoVo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
         AdminUserInfoVo adminUserInfoVo = new AdminUserInfoVo(perms, rolesKeyLists, userInfoVo);

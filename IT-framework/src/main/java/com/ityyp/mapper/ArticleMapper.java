@@ -1,7 +1,7 @@
 package com.ityyp.mapper;
 
-import com.ityyp.domain.pojo.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ityyp.domain.pojo.Article;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
+    Object updateArticleViewCountById(Article article);
 }
 
 

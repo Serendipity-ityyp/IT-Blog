@@ -1,6 +1,7 @@
 package com.ityyp.service.impl;
 
 import com.google.gson.Gson;
+import com.ityyp.constants.SystemConstants;
 import com.ityyp.domain.ResponseResult;
 import com.ityyp.enums.AppHttpCodeEnum;
 import com.ityyp.exception.SystemException;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+
 
 @Service
 @Data
@@ -47,7 +49,7 @@ public class OssUploadService implements UploadService {
 
     private String uploadOss(MultipartFile imgFile, String filePath){
         //构造一个带指定 Region 对象的配置类
-        Configuration cfg = new Configuration(Region.huabei());
+        Configuration cfg = new Configuration(Region.huanan());
         //...其他参数参考类注释
         UploadManager uploadManager = new UploadManager(cfg);
         //默认不指定key的情况下，以文件内容的hash值作为文件名
@@ -62,7 +64,8 @@ public class OssUploadService implements UploadService {
                 DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
                 System.out.println(putRet.key);
                 System.out.println(putRet.hash);
-                return "http://rx293yp1h.hb-bkt.clouddn.com/"+key;
+
+                return SystemConstants.IMAGE_PREX+key;
             } catch (QiniuException ex) {
                 Response r = ex.response;
                 System.err.println(r.toString());

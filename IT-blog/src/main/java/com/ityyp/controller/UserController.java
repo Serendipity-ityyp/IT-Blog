@@ -1,5 +1,6 @@
 package com.ityyp.controller;
 
+//import com.ityyp.annotation.ExampleLog;
 import com.ityyp.annotation.SystemLog;
 import com.ityyp.domain.ResponseResult;
 import com.ityyp.domain.pojo.User;
@@ -14,6 +15,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/userInfo")
+//    @ExampleLog(business = "查询用户信息")
     public ResponseResult userInfo(){
         return userService.userInfo();
     }

@@ -1,11 +1,11 @@
 package com.ityyp.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ityyp.domain.ResponseResult;
 import com.ityyp.domain.dto.AddArticleDto;
 import com.ityyp.domain.dto.ArticleListDto;
 import com.ityyp.domain.dto.UpdateArticleDto;
 import com.ityyp.domain.pojo.Article;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.ityyp.domain.ResponseResult;
 import com.ityyp.domain.vo.ArticleVo;
 
 /**
@@ -30,4 +30,6 @@ public interface ArticleService extends IService<Article> {
     ArticleVo getInfo(Integer id);
 
     ResponseResult updateArticleById(UpdateArticleDto updateArticleDto);
+
+    Object updateArticleViewCountById(Article article);
 }

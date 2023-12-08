@@ -4,16 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ityyp.constants.SystemConstants;
+import com.ityyp.domain.ResponseResult;
 import com.ityyp.domain.dto.AddArticleDto;
 import com.ityyp.domain.dto.ArticleListDto;
 import com.ityyp.domain.dto.UpdateArticleDto;
 import com.ityyp.domain.pojo.Article;
-import com.ityyp.domain.ResponseResult;
 import com.ityyp.domain.pojo.ArticleTag;
 import com.ityyp.domain.pojo.Category;
 import com.ityyp.domain.vo.*;
-import com.ityyp.service.ArticleService;
 import com.ityyp.mapper.ArticleMapper;
+import com.ityyp.service.ArticleService;
 import com.ityyp.service.ArticleTagService;
 import com.ityyp.service.CategoryService;
 import com.ityyp.utils.BeanCopyUtils;
@@ -181,6 +181,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
                 .collect(Collectors.toList());
         articleTagService.saveBatch(articleTags);
         return ResponseResult.okResult();
+    }
+
+    @Override
+    public Object updateArticleViewCountById(Article article) {
+        return getBaseMapper().updateArticleViewCountById(article);
     }
 }
 

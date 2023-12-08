@@ -48,4 +48,6 @@ public class SystemConstants {
      */
     public static final String BUTTON = "F";
     public static final String ADMIN = "1";
+
+    public static final String IMAGE_PREX = "http://s1yjg95rv.hn-bkt.clouddn.com/";
 }

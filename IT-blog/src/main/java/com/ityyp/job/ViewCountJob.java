@@ -4,7 +4,6 @@ import com.ityyp.domain.pojo.Article;
 import com.ityyp.service.ArticleService;
 import com.ityyp.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.ReaderEditor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +30,14 @@ public class ViewCountJob {
                 .stream()
                 .map(entry -> new Article(Long.valueOf(entry.getKey()), entry.getValue().longValue()))
                 .collect(Collectors.toList());
-        //更新到数据库中
-        articleService.updateBatchById(articles);
+
+        for (Article article : articles) {
+            article.setUpdateBy(null);
+            articleService.updateById(article);
+        }
+
+//        articles.stream()
+//                .map(article -> articleService.updateArticleViewCountById(article))
+//                .collect(Collectors.toList());
     }
 }

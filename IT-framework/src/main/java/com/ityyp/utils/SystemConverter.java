@@ -27,8 +27,6 @@ public class SystemConverter {
                 .filter(o -> o.getParentId().equals(0L))
                 .map(o -> o.setChildren(getChildList(MenuTreeVos, o)))
                 .collect(Collectors.toList());
-
-
         return options;
     }
 
@@ -42,6 +40,5 @@ public class SystemConverter {
                 .map(o -> o.setChildren(getChildList(list, o)))
                 .collect(Collectors.toList());
         return options;
-
     }
 }

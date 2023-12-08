@@ -29,4 +29,12 @@
         is_comment,create_by,create_time,
         update_by,update_time,del_flag
     </sql>
+    <update id="updateArticleViewCountById">
+        UPDATE
+            sg_article
+        SET
+            view_count = #{article.view_count}
+        where
+              id = #{article.id};
+    </update>
 </mapper>
